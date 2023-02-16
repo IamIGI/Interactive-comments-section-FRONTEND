@@ -14,7 +14,7 @@ export interface CommentInterface {
         level: number;
         commentIds: string[];
     };
-    responses?: {
+    responses: {
         userId: string;
         image: string;
         nickname: string;
@@ -29,6 +29,22 @@ export interface CommentInterface {
             level: number;
             commentIds: string[];
         };
+        responses: {
+            userId: string;
+            image: string;
+            nickname: string;
+            date: string;
+            message: string;
+            score: number;
+            tagUser: {
+                isTrue: boolean;
+                userId?: string;
+            };
+            commentIndent: {
+                level: number;
+                commentIds: string[];
+            };
+        }[];
     }[];
 }
 

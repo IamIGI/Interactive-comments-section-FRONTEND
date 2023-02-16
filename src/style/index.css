@@ -1,23 +1,27 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: 'League Spartan';
-  font-size: 25px;
+    font-family: 'League Spartan';
+    font-size: 25px;
 }
 body {
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  place-content: center;
-  background-color: var(--color-neutral-lightGray);
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-content: center;
+    background-color: var(--color-neutral-lightGray);
 }
 
 .test {
-  padding: 10px;
-  border: 1px solid red;
-  border-radius: var(--border-radius);
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: var(--border-radius);
+}
+
+.pointer:hover {
+    cursor: pointer;
 }
