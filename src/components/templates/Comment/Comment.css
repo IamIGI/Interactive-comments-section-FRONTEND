@@ -1,0 +1,144 @@
+.comment {
+    width: 100%;
+    max-width: 800px;
+    min-width: 350px;
+    height: fit-content;
+    min-height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 35px;
+    background-color: var(--color-neutral-white);
+    border-radius: var(--border-radius);
+    padding: 20px 25px;
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    max-width: 45px;
+    background-color: var(--color-neutral-veryLightGray);
+    border-radius: var(--border-radius);
+
+    font-size: 19px;
+    font-weight: 700;
+
+    max-height: 140px;
+}
+
+.scoreboard__button {
+    border-radius: var(--border-radius);
+    padding: 5px;
+    color: var(--color-neutral-grayishBlue);
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 20px;
+    font-weight: 700;
+
+    width: 100%;
+
+    height: 40px;
+}
+
+.scoreboard__button:hover {
+    background-color: var(--color-neutral-lightGray);
+}
+
+.scoreboard__score {
+    color: var(--color-primary-moderateBlue);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.content__nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0px;
+    gap: 10px;
+}
+
+.content__nav__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.content__nav__info__desc {
+    font-size: 14px;
+}
+
+.content__nav__info__desc h3 span {
+    color: var(--color-neutral-grayishBlue);
+    padding-left: 10px;
+    font-weight: 400;
+}
+
+.content__nav__info_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-right: 2%;
+}
+
+.content__nav__info img {
+    height: 35px;
+    width: auto;
+}
+
+.reply {
+    color: var(--color-primary-moderateBlue);
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.delete {
+    color: var(--color-primary-softRed);
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.message p {
+    line-height: 25px;
+    color: var(--color-neutral-darkBlue);
+}
+
+.message p span {
+    color: var(--color-primary-moderateBlue);
+    font-weight: 700;
+}
+
+.customButton {
+    padding: 7px 3px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+}
+
+.customButton:hover {
+    background-color: var(--color-neutral-veryLightGray);
+}

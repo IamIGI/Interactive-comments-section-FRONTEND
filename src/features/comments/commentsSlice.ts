@@ -11,21 +11,22 @@ import {
 } from '../../interfaces/comment.interfaces';
 
 interface CommentsInitialState {
-    data: CommentInterface | {};
+    data: CommentInterface[];
     status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
     error: undefined | string;
     refresh: boolean;
 }
 
 const initialState: CommentsInitialState = {
-    data: {},
+    data: [],
     status: 'idle',
     error: undefined,
     refresh: false,
 };
 
-export const fetchComments = createAsyncThunk('comments/get', async (): Promise<CommentInterface> => {
+export const fetchComments = createAsyncThunk('comments/get', async (): Promise<CommentInterface[]> => {
     const response = await getComments();
+
     return response;
 });
 
@@ -70,8 +71,8 @@ const commentsSlice = createSlice({
             .addCase(fetchComments.pending, (state) => {
                 state.status = 'pending';
             })
-            .addCase(fetchComments.fulfilled, (state, action: PayloadAction<CommentInterface>) => {
-                state.status = 'pending';
+            .addCase(fetchComments.fulfilled, (state, action: PayloadAction<CommentInterface[]>) => {
+                state.status = 'fulfilled';
                 state.data = action.payload;
             })
             .addCase(fetchComments.rejected, (state) => {
@@ -82,7 +83,7 @@ const commentsSlice = createSlice({
 
 export const { refreshComments } = commentsSlice.actions;
 export const selectAllComments = (state: RootState) => state.comments.data;
-export const commentsStatus = (state: RootState) => state.comments.data;
-export const commentsErrors = (state: RootState) => state.comments.data;
+export const commentsStatus = (state: RootState) => state.comments.status;
+export const commentsErrors = (state: RootState) => state.comments.error;
 
 export default commentsSlice.reducer;
