@@ -15,6 +15,7 @@ interface CommentsInitialState {
     status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
     error: undefined | string;
     refresh: boolean;
+    reply: { replyName: string; commentId: string };
 }
 
 const initialState: CommentsInitialState = {
@@ -22,6 +23,7 @@ const initialState: CommentsInitialState = {
     status: 'idle',
     error: undefined,
     refresh: false,
+    reply: { replyName: '', commentId: '' },
 };
 
 export const fetchComments = createAsyncThunk('comments/get', async (): Promise<CommentInterface[]> => {
@@ -65,6 +67,14 @@ const commentsSlice = createSlice({
         refreshComments(state) {
             state.refresh = !state.refresh;
         },
+        openReply(state, action: PayloadAction<{ replyName: string; commentId: string }>) {
+            let { replyName, commentId } = action.payload;
+            console.log(replyName, commentId);
+            if (state.reply.commentId === commentId) {
+                commentId = '';
+            }
+            state.reply = { replyName, commentId };
+        },
     },
     extraReducers(builder) {
         builder
@@ -81,9 +91,10 @@ const commentsSlice = createSlice({
     },
 });
 
-export const { refreshComments } = commentsSlice.actions;
+export const { refreshComments, openReply } = commentsSlice.actions;
 export const selectAllComments = (state: RootState) => state.comments.data;
 export const commentsStatus = (state: RootState) => state.comments.status;
 export const commentsErrors = (state: RootState) => state.comments.error;
+export const replyState = (state: RootState) => state.comments.reply;
 
 export default commentsSlice.reducer;

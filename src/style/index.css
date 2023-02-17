@@ -9,8 +9,6 @@ html {
     font-size: 25px;
 }
 body {
-    /* width: 100vw;
-    height: 100vh; */
     margin: auto;
     background-color: var(--color-neutral-veryLightGray);
 }
@@ -61,7 +59,7 @@ body {
 
 @media screen and (max-width: 500px) {
     .commentSection {
-        width: 300px;
+        width: 350px;
     }
 
     /* .commentSubSection {
