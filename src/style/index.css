@@ -9,19 +9,64 @@ html {
     font-size: 25px;
 }
 body {
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    place-content: center;
-    background-color: var(--color-neutral-lightGray);
+    /* width: 100vw;
+    height: 100vh; */
+    margin: auto;
+    background-color: var(--color-neutral-veryLightGray);
 }
 
-.test {
-    padding: 10px;
-    border: 1px solid red;
-    border-radius: var(--border-radius);
+.commentSection {
+    margin: auto;
+    margin-top: 20px;
+    width: 900px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.commentSubSection {
+    border-left: 4px solid var(--color-neutral-lightGray);
+    margin-left: 4%;
+    padding-left: 4%;
+    width: 96%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .pointer:hover {
     cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    .commentSection {
+        width: 700px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .commentSection {
+        width: 400px;
+    }
+
+    .commentSubSection {
+        margin-left: 2%;
+        padding-left: 2%;
+        width: 98%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .commentSection {
+        width: 300px;
+    }
+
+    /* .commentSubSection {
+        margin-left: 2%;
+        padding-left: 2%;
+        width: 98%;
+    } */
 }
