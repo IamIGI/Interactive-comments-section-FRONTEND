@@ -1,3 +1,4 @@
+import AddComment from './components/organisms/AddComment/AddComment';
 import Comment from './components/templates/Comment/Comment';
 import { useGetComments } from './features/comments/commentsHooks';
 import { CommentInterface } from './interfaces/comment.interfaces';
@@ -32,6 +33,7 @@ function App() {
                             </div>
                         </>
                     ))}
+                    <AddComment isReply={false} />
                 </>
             ) : null}
         </div>
