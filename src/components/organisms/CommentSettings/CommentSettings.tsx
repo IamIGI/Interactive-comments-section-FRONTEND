@@ -13,7 +13,6 @@ const CommentSettings = ({ nickname, commentId }: CommentSettingsProps) => {
     const dispatch = useAppDispatch();
 
     const handleReply = () => {
-        console.log('click: handleReply');
         dispatch(openReply({ replyName: nickname, commentId }));
     };
 

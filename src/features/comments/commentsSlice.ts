@@ -69,10 +69,7 @@ const commentsSlice = createSlice({
         },
         openReply(state, action: PayloadAction<{ replyName: string; commentId: string }>) {
             let { replyName, commentId } = action.payload;
-            console.log(replyName, commentId);
-            if (state.reply.commentId === commentId) {
-                commentId = '';
-            }
+            if (state.reply.commentId === commentId) commentId = '';
             state.reply = { replyName, commentId };
         },
     },
