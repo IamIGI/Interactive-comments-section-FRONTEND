@@ -1,8 +1,4 @@
 .comment {
-    width: 100%;
-    max-width: 800px;
-    min-width: 350px;
-    height: fit-content;
     min-height: 150px;
     display: flex;
     flex-direction: row;
@@ -12,6 +8,23 @@
     background-color: var(--color-neutral-white);
     border-radius: var(--border-radius);
     padding: 20px 25px;
+    width: 100%;
+}
+
+/* @media screen and (min-width: 1000px) {
+    .comment {
+        min-width: 800px;
+    } 
+} */
+
+.leftSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 45px;
+    width: 100%;
+    max-height: 140px;
 }
 
 .scoreboard {
@@ -22,14 +35,11 @@
     gap: 10px;
     width: 100%;
 
-    max-width: 45px;
     background-color: var(--color-neutral-veryLightGray);
     border-radius: var(--border-radius);
 
     font-size: 19px;
     font-weight: 700;
-
-    max-height: 140px;
 }
 
 .scoreboard__button {
@@ -56,9 +66,11 @@
 }
 
 .content {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
 }
@@ -91,32 +103,13 @@
     font-weight: 400;
 }
 
-.content__nav__info_buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-right: 2%;
-}
-
 .content__nav__info img {
     height: 35px;
     width: auto;
 }
 
-.reply {
-    color: var(--color-primary-moderateBlue);
-    padding: 0;
-    border: none;
-    background: none;
-}
-
-.delete {
-    color: var(--color-primary-softRed);
-    padding: 0;
-    border: none;
-    background: none;
+.message {
+    width: 100%;
 }
 
 .message p {
@@ -127,18 +120,41 @@
 .message p span {
     color: var(--color-primary-moderateBlue);
     font-weight: 700;
+    margin-right: 10px;
 }
 
-.customButton {
-    padding: 7px 3px;
+.smallerScreen {
+    display: none;
+}
+
+.biggerScreen {
     display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 16px;
-    font-weight: 700;
-    border-radius: var(--border-radius);
 }
 
-.customButton:hover {
-    background-color: var(--color-neutral-veryLightGray);
+@media screen and (max-width: 750px) {
+    .smallerScreen {
+        display: flex;
+    }
+
+    .biggerScreen {
+        display: none;
+    }
+
+    .comment {
+        flex-direction: column;
+
+        gap: 35px;
+    }
+
+    .leftSection {
+        order: 2;
+        flex-direction: row;
+        max-width: 100%;
+        max-height: 50px;
+    }
+
+    .scoreboard {
+        flex-direction: row;
+        width: 150px;
+    }
 }

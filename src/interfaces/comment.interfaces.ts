@@ -1,4 +1,5 @@
 export interface CommentInterface {
+    _id: string;
     userId: string;
     image: string;
     nickname: string;
@@ -15,6 +16,7 @@ export interface CommentInterface {
         commentIds: string[];
     };
     responses: {
+        _id: string;
         userId: string;
         image: string;
         nickname: string;
@@ -30,6 +32,7 @@ export interface CommentInterface {
             commentIds: string[];
         };
         responses: {
+            _id: string;
             userId: string;
             image: string;
             nickname: string;

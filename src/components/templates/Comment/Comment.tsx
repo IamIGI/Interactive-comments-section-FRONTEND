@@ -1,40 +1,57 @@
-import { MdDelete } from 'react-icons/md';
-import { FaReply } from 'react-icons/fa';
+import CommentSettings from '../../organisms/CommentSettings/CommentSettings';
 import './Comment.css';
 
-const Comment = () => {
+interface CommentProps {
+    data: {
+        userId: string;
+        image: string;
+        nickname: string;
+        date: string;
+        message: string;
+        score: number;
+        tagUser: {
+            isTrue: boolean;
+            userId?: string;
+            userName?: string;
+        };
+        commentIndent: {
+            level: number;
+            commentIds: string[];
+        };
+    };
+}
+
+const Comment = ({ data }: CommentProps) => {
     return (
         <div className="comment">
-            <div className="scoreboard">
-                <button className="scoreboard__button pointer">+</button>
-                <div className="scoreboard__score">12</div>
-                <button className="scoreboard__button pointer">-</button>
+            <div className="leftSection">
+                <div className="scoreboard">
+                    <button className="scoreboard__button pointer">+</button>
+                    <div className="scoreboard__score">{data.score}</div>
+                    <button className="scoreboard__button pointer">-</button>
+                </div>
+                <div className="smallerScreen">
+                    <CommentSettings />
+                </div>
             </div>
             <div className="content">
                 <div className="content__nav">
                     <div className="content__nav__info">
-                        <img src="../../../../images/avatars/image-amyrobson.webp" />
+                        <img src={`../../../../images/avatars/${data.image}`} />
                         <div className="content__nav__info__desc">
                             <h3>
-                                Amyrobson <span> 1 month ago</span>
+                                {data.nickname} <span> 1 month ago</span>
                             </h3>
                         </div>
                     </div>
-                    <div className="content__nav__info_buttons">
-                        <button className="delete customButton pointer">
-                            <MdDelete /> Delete
-                        </button>
-                        <button className="reply customButton pointer">
-                            <FaReply /> Reply
-                        </button>
+                    <div className="biggerScreen">
+                        <CommentSettings />
                     </div>
                 </div>
                 <div className="message">
                     <p>
-                        <span>@maxblune</span> Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                        unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into electronic
+                        {data.tagUser.isTrue && <span>@{data.tagUser.userName}</span>}
+                        {data.message}
                     </p>
                 </div>
             </div>

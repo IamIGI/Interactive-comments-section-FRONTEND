@@ -1,0 +1,36 @@
+.content__nav__info__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-right: 2%;
+}
+
+.reply {
+    color: var(--color-primary-moderateBlue);
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.delete {
+    color: var(--color-primary-softRed);
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.customButton {
+    padding: 7px 3px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+}
+
+.customButton:hover {
+    background-color: var(--color-neutral-veryLightGray);
+}
