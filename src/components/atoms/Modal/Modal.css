@@ -7,7 +7,7 @@
 }
 
 .insideWrapper {
-    min-width: 300px;
+    width: 340px;
     position: relative;
     /* width: fit-content;
     height: fit-content; */

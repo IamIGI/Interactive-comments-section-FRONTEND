@@ -1,16 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../app/store';
-import {
-    fetchComments,
-    addComments,
-    deleteComments,
-    editComment,
-    editScore,
-    commentsStatus,
-    commentsErrors,
-    selectAllComments,
-} from './commentsSlice';
+import { fetchComments, commentsStatus, commentsErrors, selectAllComments } from './commentsSlice';
 
 export function useGetComments() {
     const dispatch = useAppDispatch();
