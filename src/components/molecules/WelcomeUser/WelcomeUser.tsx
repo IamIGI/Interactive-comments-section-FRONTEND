@@ -22,7 +22,6 @@ const WelcomeUser = () => {
 
     const handleAvatar = (url: string) => {
         setShowOptions(false);
-        console.log(url);
         dispatch(saveAvatar(url));
     };
 

@@ -45,8 +45,6 @@
     justify-content: flex-end;
     align-items: center;
     gap: 15px;
-    /* margin-left: auto;
-    margin-right: 0; */
 }
 .modal__button {
     padding: 15px 20px;

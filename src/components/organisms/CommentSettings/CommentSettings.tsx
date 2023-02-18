@@ -21,7 +21,6 @@ const CommentSettings = ({ nickname, commentId }: CommentSettingsProps) => {
     };
 
     const handleDelete = () => {
-        console.log(commentId);
         setDeleteModalOpen(true);
     };
 

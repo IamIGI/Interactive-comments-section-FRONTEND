@@ -7,7 +7,6 @@ const store = configureStore({
     reducer: {
         comments: commentsReducer,
     },
-    // middleware: (getDefaultMiddleware) => [listenerMiddleware.middleware],
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
