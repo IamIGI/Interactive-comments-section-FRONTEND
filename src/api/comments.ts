@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
     addCommentObjectInterface,
+    CommentInterface,
     deleteObjectInterface,
     editCommentObjectInterface,
     editCommentScoreObjectInterface,
@@ -14,7 +15,7 @@ const commentsApi = axios.create({
 const getComments = async () => {
     try {
         const response = await commentsApi.get('/all');
-        return response.data;
+        return response.data as CommentInterface[];
     } catch (err) {
         console.log(err);
     }

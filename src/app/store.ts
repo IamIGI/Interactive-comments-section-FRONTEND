@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import commentsReducer from '../features/comments/commentsSlice';
+import { listenerMiddleware } from './middleware';
 
 const store = configureStore({
     reducer: {
         comments: commentsReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

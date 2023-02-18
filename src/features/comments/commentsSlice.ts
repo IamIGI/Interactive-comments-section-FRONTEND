@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
@@ -10,13 +11,31 @@ import {
     editCommentScoreObjectInterface,
 } from '../../interfaces/comment.interfaces';
 
+// interface tempUserDataInterface {
+//     userName: string;
+//     avatar: string;
+// }
+interface userDataInterface {
+    userName: string;
+    avatar: string;
+    userId: string;
+}
 interface CommentsInitialState {
     data: CommentInterface[];
     status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
     error: undefined | string;
     refresh: boolean;
     reply: { replyName: string; commentId: string };
+    userData: userDataInterface;
+    missingUserName: boolean;
 }
+
+const userData: userDataInterface =
+    //@ts-ignore
+    JSON.parse(localStorage.getItem('userData')) === null
+        ? { userName: '', avatar: 'image-amyrobson.webp', userId: '' }
+        : //@ts-ignore
+          JSON.parse(localStorage.getItem('userData'));
 
 const initialState: CommentsInitialState = {
     data: [],
@@ -24,12 +43,14 @@ const initialState: CommentsInitialState = {
     error: undefined,
     refresh: false,
     reply: { replyName: '', commentId: '' },
+    userData,
+    missingUserName: false,
 };
 
 export const fetchComments = createAsyncThunk('comments/get', async (): Promise<CommentInterface[]> => {
     const response = await getComments();
 
-    return response;
+    return response!;
 });
 
 export const addComments = createAsyncThunk(
@@ -72,6 +93,18 @@ const commentsSlice = createSlice({
             if (state.reply.commentId === commentId) commentId = '';
             state.reply = { replyName, commentId };
         },
+        saveAvatar(state, action: PayloadAction<string>) {
+            state.userData.avatar = action.payload;
+        },
+        saveUserName(state, action: PayloadAction<string>) {
+            state.userData.userName = action.payload;
+        },
+        isUserNameExists(state, action: PayloadAction<boolean>) {
+            state.missingUserName = true;
+        },
+        saveUserId(state) {
+            state.userData.userId = uuidv4();
+        },
     },
     extraReducers(builder) {
         builder
@@ -88,10 +121,15 @@ const commentsSlice = createSlice({
     },
 });
 
-export const { refreshComments, openReply } = commentsSlice.actions;
+export const { refreshComments, openReply, saveAvatar, saveUserId, saveUserName, isUserNameExists } =
+    commentsSlice.actions;
 export const selectAllComments = (state: RootState) => state.comments.data;
 export const commentsStatus = (state: RootState) => state.comments.status;
 export const commentsErrors = (state: RootState) => state.comments.error;
 export const replyState = (state: RootState) => state.comments.reply;
+export const selectAvatar = (state: RootState) => state.comments.userData.avatar;
+export const selectUserName = (state: RootState) => state.comments.userData.userName;
+export const selectIsUserNameExists = (state: RootState) => state.comments.missingUserName;
+export const selectUserExists = (state: RootState) => Boolean(state.comments.userData.userId);
 
 export default commentsSlice.reducer;
