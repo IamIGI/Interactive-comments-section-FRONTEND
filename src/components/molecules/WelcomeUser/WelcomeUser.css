@@ -18,6 +18,13 @@
     width: 200px;
 }
 
+.welcomeContainer input[data-missingUserName='red'] {
+    border: 1px solid red;
+}
+.welcomeContainer input[data-missingUserName='lightgrey'] {
+    border: 1px solid lightgrey;
+}
+
 .welcomeContainer input:hover {
     border: 1px solid grey;
 }

@@ -44,7 +44,7 @@ const initialState: CommentsInitialState = {
     refresh: false,
     reply: { replyName: '', commentId: '' },
     userData,
-    missingUserName: true,
+    missingUserName: false,
 };
 
 export const fetchComments = createAsyncThunk('comments/get', async (): Promise<CommentInterface[]> => {
@@ -103,7 +103,7 @@ const commentsSlice = createSlice({
             state.missingUserName = true;
         },
         saveUserId(state) {
-            if (!state.missingUserName) state.userData.userId = uuidv4();
+            state.userData.userId = uuidv4();
         },
     },
     extraReducers(builder) {

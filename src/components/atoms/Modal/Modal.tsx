@@ -28,6 +28,7 @@ export default function Modal({ open, children, welcomeModal = false, onClose }:
     const handleOnClose = () => {
         if (welcomeModal) {
             if (userName.length > 2) {
+                console.log('save user name');
                 dispatch(saveUserId());
                 dispatch(isUserNameExists(false));
                 onClose();

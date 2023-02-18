@@ -19,18 +19,15 @@ const WelcomeUser = () => {
     const avatar = useSelector(selectAvatar);
     const userNameFlag = useSelector(selectIsUserNameExists);
     const [showOptions, setShowOptions] = useState<boolean>(false);
-    // const [avatar, setAvatar] = useState<string>('image-amyrobson.webp');
 
     const handleAvatar = (url: string) => {
         setShowOptions(false);
-        // setAvatar(url);
         console.log(url);
         dispatch(saveAvatar(url));
     };
 
     const handleUserName = (data: string) => {
         dispatch(saveUserName(data));
-        // dispatch(isUserNameExists());
     };
 
     return (
@@ -52,8 +49,12 @@ const WelcomeUser = () => {
                     </div>
                 )}
             </div>
-            <input placeholder="Your name" value={userName} onChange={(e) => handleUserName(e.target.value)} />
-            {userNameFlag && <p>no user name</p>}
+            <input
+                data-missingUserName={userNameFlag ? 'red' : 'lightgrey'}
+                placeholder="Your name"
+                value={userName}
+                onChange={(e) => handleUserName(e.target.value)}
+            />
         </div>
     );
 };
