@@ -8,16 +8,17 @@ import { useState } from 'react';
 import { contextText } from '../../../data/data';
 
 interface CommentSettingsProps {
-    nickname: string;
-    commentId: string;
+    parents: string[];
+    replyData: { userId: string; userName: string; commentId: string };
 }
 
-const CommentSettings = ({ nickname, commentId }: CommentSettingsProps) => {
+const CommentSettings = ({ parents, replyData }: CommentSettingsProps) => {
     const dispatch = useAppDispatch();
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
     const handleReply = () => {
-        dispatch(openReply({ replyName: nickname, commentId }));
+        console.log(parents);
+        dispatch(openReply({ commentIds: parents, ...replyData }));
     };
 
     const handleDelete = () => {

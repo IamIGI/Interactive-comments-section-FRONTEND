@@ -49,7 +49,7 @@ const WelcomeUser = () => {
                 )}
             </div>
             <input
-                data-missingUserName={userNameFlag ? 'red' : 'lightgrey'}
+                data-missingusername={userNameFlag ? 'red' : 'lightgrey'}
                 placeholder="Your name"
                 value={userName}
                 onChange={(e) => handleUserName(e.target.value)}

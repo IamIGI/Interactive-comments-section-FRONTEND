@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { replyState } from '../../../features/comments/commentsSlice';
 import AddComment from '../../organisms/AddComment/AddComment';
 import CommentSettings from '../../organisms/CommentSettings/CommentSettings';
@@ -23,11 +23,11 @@ interface CommentProps {
             commentIds: string[];
         };
     };
+    parents: string[];
 }
 
-const Comment = ({ data }: CommentProps) => {
+const Comment = ({ data, parents }: CommentProps) => {
     const { commentId } = useSelector(replyState);
-
     return (
         <div className="container">
             <div className="comment">
@@ -38,7 +38,10 @@ const Comment = ({ data }: CommentProps) => {
                         <button className="scoreboard__button pointer">-</button>
                     </div>
                     <div className="smallerScreen">
-                        <CommentSettings nickname={data.nickname} commentId={data._id} />
+                        <CommentSettings
+                            replyData={{ userId: data.userId, userName: data.nickname, commentId: data._id }}
+                            parents={parents}
+                        />
                     </div>
                 </div>
                 <div className="content">
@@ -52,7 +55,10 @@ const Comment = ({ data }: CommentProps) => {
                             </div>
                         </div>
                         <div className="biggerScreen">
-                            <CommentSettings nickname={data.nickname} commentId={data._id} />
+                            <CommentSettings
+                                replyData={{ userId: data.userId, userName: data.nickname, commentId: data._id }}
+                                parents={parents}
+                            />
                         </div>
                     </div>
                     <div className="message">
