@@ -23,7 +23,9 @@ const getComments = async () => {
 
 const addComment = async (object: addCommentObjectInterface) => {
     try {
-        const response = await commentsApi.post('/all', object);
+        console.log(object);
+        const response = await commentsApi.post('/add', object);
+        console.log(response);
         return response.data;
     } catch (err) {
         console.log(err);

@@ -11,21 +11,24 @@ import {
     editCommentScoreObjectInterface,
 } from '../../interfaces/comment.interfaces';
 
-// interface tempUserDataInterface {
-//     userName: string;
-//     avatar: string;
-// }
 interface userDataInterface {
     userName: string;
     avatar: string;
     userId: string;
+}
+
+interface replyInterface {
+    commentIds: string[];
+    commentId: string;
+    userId: string;
+    userName: string;
 }
 interface CommentsInitialState {
     data: CommentInterface[];
     status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
     error: undefined | string;
     refresh: boolean;
-    reply: { replyName: string; commentId: string };
+    reply: replyInterface;
     userData: userDataInterface;
     missingUserName: boolean;
 }
@@ -42,7 +45,7 @@ const initialState: CommentsInitialState = {
     status: 'idle',
     error: undefined,
     refresh: false,
-    reply: { replyName: '', commentId: '' },
+    reply: { commentIds: [], commentId: '', userId: '', userName: '' },
     userData,
     missingUserName: false,
 };
@@ -56,6 +59,7 @@ export const fetchComments = createAsyncThunk('comments/get', async (): Promise<
 export const addComments = createAsyncThunk(
     'comments/add',
     async (object: addCommentObjectInterface): Promise<void> => {
+        console.log(object);
         await addComment(object);
     }
 );
@@ -88,10 +92,8 @@ const commentsSlice = createSlice({
         refreshComments(state) {
             state.refresh = !state.refresh;
         },
-        openReply(state, action: PayloadAction<{ replyName: string; commentId: string }>) {
-            let { replyName, commentId } = action.payload;
-            if (state.reply.commentId === commentId) commentId = '';
-            state.reply = { replyName, commentId };
+        openReply(state, action: PayloadAction<replyInterface>) {
+            state.reply = action.payload;
         },
         saveAvatar(state, action: PayloadAction<string>) {
             state.userData.avatar = action.payload;
@@ -115,8 +117,17 @@ const commentsSlice = createSlice({
                 state.status = 'fulfilled';
                 state.data = action.payload;
             })
-            .addCase(fetchComments.rejected, (state) => {
-                state.status = 'pending';
+            .addCase(fetchComments.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.error.message as string;
+            })
+            .addCase(addComments.fulfilled, (state) => {
+                state.status = 'fulfilled';
+                refreshComments();
+            })
+            .addCase(addComments.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.error.message as string;
             });
     },
 });
@@ -131,5 +142,6 @@ export const selectAvatar = (state: RootState) => state.comments.userData.avatar
 export const selectUserName = (state: RootState) => state.comments.userData.userName;
 export const selectIsUserNameExists = (state: RootState) => state.comments.missingUserName;
 export const selectUserExists = (state: RootState) => Boolean(state.comments.userData.userId);
+export const selectUserData = (state: RootState) => state.comments.userData;
 
 export default commentsSlice.reducer;
