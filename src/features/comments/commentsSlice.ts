@@ -29,6 +29,7 @@ interface CommentsInitialState {
     error: undefined | string;
     refresh: boolean;
     reply: replyInterface;
+    delete: { commentIds: string[] };
     userData: userDataInterface;
     missingUserName: boolean;
 }
@@ -48,6 +49,7 @@ const initialState: CommentsInitialState = {
     error: undefined,
     refresh: false,
     reply: replyInit,
+    delete: { commentIds: [''] },
     userData,
     missingUserName: false,
 };
@@ -93,6 +95,9 @@ const commentsSlice = createSlice({
         refreshComments(state) {
             state.refresh = !state.refresh;
         },
+        saveDelete(state, action: PayloadAction<string[]>) {
+            state.delete.commentIds = action.payload;
+        },
         openReply(state, action: PayloadAction<replyInterface>) {
             state.reply = action.payload;
         },
@@ -131,12 +136,27 @@ const commentsSlice = createSlice({
             .addCase(addComments.rejected, (state, action) => {
                 state.status = 'rejected';
                 state.error = action.error.message as string;
+            })
+            .addCase(deleteComments.fulfilled, (state) => {
+                state.status = 'fulfilled';
+            })
+            .addCase(deleteComments.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.error.message as string;
             });
     },
 });
 
-export const { refreshComments, openReply, clearReply, saveAvatar, saveUserId, saveUserName, isUserNameExists } =
-    commentsSlice.actions;
+export const {
+    refreshComments,
+    saveDelete,
+    openReply,
+    clearReply,
+    saveAvatar,
+    saveUserId,
+    saveUserName,
+    isUserNameExists,
+} = commentsSlice.actions;
 export const selectAllComments = (state: RootState) => state.comments.data;
 export const commentsStatus = (state: RootState) => state.comments.status;
 export const commentsErrors = (state: RootState) => state.comments.error;
@@ -147,5 +167,6 @@ export const selectUserName = (state: RootState) => state.comments.userData.user
 export const selectIsUserNameExists = (state: RootState) => state.comments.missingUserName;
 export const selectUserExists = (state: RootState) => Boolean(state.comments.userData.userId);
 export const selectUserData = (state: RootState) => state.comments.userData;
+export const selectDeleteComment = (state: RootState) => state.comments.delete;
 
 export default commentsSlice.reducer;

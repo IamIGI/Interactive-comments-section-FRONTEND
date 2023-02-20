@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../app/store';
 import {
+    deleteComments,
     isUserNameExists,
+    refreshComments,
     saveUserId,
+    selectDeleteComment,
     selectIsUserNameExists,
     selectUserName,
 } from '../../../features/comments/commentsSlice';
+import { deleteObjectInterface } from '../../../interfaces/comment.interfaces';
 import WelcomeUser from '../../molecules/WelcomeUser/WelcomeUser';
 
 import './Modal.css';
@@ -22,6 +26,7 @@ interface ModalProps {
 export default function Modal({ open, children, welcomeModal = false, onClose }: ModalProps) {
     const dispatch = useAppDispatch();
     const userName = useSelector(selectUserName);
+    const deleteCommentData = useSelector(selectDeleteComment);
     if (!open) return null;
 
     const handleOnClose = () => {
@@ -31,11 +36,21 @@ export default function Modal({ open, children, welcomeModal = false, onClose }:
                 dispatch(isUserNameExists(false));
                 onClose();
             } else {
-                console.log('missing userName');
                 dispatch(isUserNameExists(true));
             }
         } else {
-            onClose();
+            const object: deleteObjectInterface = {
+                indentLevel: deleteCommentData.commentIds.length - 1,
+                comments: deleteCommentData.commentIds,
+            };
+
+            const deleteItem = async () => {
+                await dispatch(deleteComments(object));
+                dispatch(refreshComments());
+                onClose();
+            };
+
+            deleteItem();
         }
     };
 
