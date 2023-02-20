@@ -42,7 +42,6 @@ const Comment = ({ data, parents }: CommentProps) => {
             comments: commentIdsArray,
             scoreUp,
         };
-        console.log(object);
         await dispatch(editScore(object));
         dispatch(refreshComments());
     };
