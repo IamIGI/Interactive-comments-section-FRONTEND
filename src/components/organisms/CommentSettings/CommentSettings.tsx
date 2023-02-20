@@ -2,7 +2,7 @@ import { MdDelete } from 'react-icons/md';
 import { FaReply } from 'react-icons/fa';
 import './CommentSettings.css';
 import { useAppDispatch } from '../../../app/store';
-import { openReply } from '../../../features/comments/commentsSlice';
+import { openReply, saveDelete } from '../../../features/comments/commentsSlice';
 import Modal from '../../atoms/Modal/Modal';
 import { useState } from 'react';
 import { contextText } from '../../../data/data';
@@ -17,11 +17,13 @@ const CommentSettings = ({ parents, replyData }: CommentSettingsProps) => {
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
     const handleReply = () => {
-        console.log(parents);
         dispatch(openReply({ commentIds: parents, ...replyData }));
     };
 
     const handleDelete = () => {
+        let commentIdsArray = [...parents];
+        if (parents[parents.length - 1] !== replyData.commentId) commentIdsArray.push(replyData.commentId);
+        dispatch(saveDelete(commentIdsArray));
         setDeleteModalOpen(true);
     };
 
