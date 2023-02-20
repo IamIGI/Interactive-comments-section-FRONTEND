@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../app/store';
-import { addComments, replyState, selectUserData } from '../../../features/comments/commentsSlice';
+import {
+    addComments,
+    clearReply,
+    refreshComments,
+    replyState,
+    selectUserData,
+} from '../../../features/comments/commentsSlice';
+import formatMessage from '../../../services/messageFormatter';
 import './AddComment.css';
 
 interface AddCommentProps {
@@ -25,7 +32,7 @@ const AddComment = ({ isReply = false }: AddCommentProps) => {
             userId: userData.userId,
             image: userData.avatar,
             nickname: userData.userName,
-            message: message,
+            message: formatMessage(message),
             tagUser: {
                 isTrue: isReply,
                 userId: isReply ? replyData.userId : '',
@@ -36,8 +43,12 @@ const AddComment = ({ isReply = false }: AddCommentProps) => {
                 commentIds: replyData.commentIds,
             },
         };
-        console.log(object);
-        // dispatch(addComments(object));
+        async function newComment() {
+            await dispatch(addComments(object));
+            dispatch(clearReply());
+            dispatch(refreshComments());
+        }
+        newComment();
     };
     return (
         <div className="addComment">

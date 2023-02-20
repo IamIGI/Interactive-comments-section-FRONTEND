@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { replyState } from '../../../features/comments/commentsSlice';
+import formatDate from '../../../services/dateFormatter';
 import AddComment from '../../organisms/AddComment/AddComment';
 import CommentSettings from '../../organisms/CommentSettings/CommentSettings';
 import './Comment.css';
@@ -28,6 +29,7 @@ interface CommentProps {
 
 const Comment = ({ data, parents }: CommentProps) => {
     const { commentId } = useSelector(replyState);
+    console.log(data.date.split('.'));
     return (
         <div className="container">
             <div className="comment">
@@ -50,7 +52,7 @@ const Comment = ({ data, parents }: CommentProps) => {
                             <img src={`../../../../images/avatars/${data.image}`} />
                             <div className="content__nav__info__desc">
                                 <h3>
-                                    {data.nickname} <span> 1 month ago</span>
+                                    {data.nickname} <span> {formatDate(data.date)}</span>
                                 </h3>
                             </div>
                         </div>

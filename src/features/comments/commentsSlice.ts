@@ -40,12 +40,14 @@ const userData: userDataInterface =
         : //@ts-ignore
           JSON.parse(localStorage.getItem('userData'));
 
+const replyInit = { commentIds: [], commentId: '', userId: '', userName: '' };
+
 const initialState: CommentsInitialState = {
     data: [],
     status: 'idle',
     error: undefined,
     refresh: false,
-    reply: { commentIds: [], commentId: '', userId: '', userName: '' },
+    reply: replyInit,
     userData,
     missingUserName: false,
 };
@@ -59,7 +61,6 @@ export const fetchComments = createAsyncThunk('comments/get', async (): Promise<
 export const addComments = createAsyncThunk(
     'comments/add',
     async (object: addCommentObjectInterface): Promise<void> => {
-        console.log(object);
         await addComment(object);
     }
 );
@@ -95,6 +96,9 @@ const commentsSlice = createSlice({
         openReply(state, action: PayloadAction<replyInterface>) {
             state.reply = action.payload;
         },
+        clearReply(state) {
+            state.reply = replyInit;
+        },
         saveAvatar(state, action: PayloadAction<string>) {
             state.userData.avatar = action.payload;
         },
@@ -123,7 +127,6 @@ const commentsSlice = createSlice({
             })
             .addCase(addComments.fulfilled, (state) => {
                 state.status = 'fulfilled';
-                refreshComments();
             })
             .addCase(addComments.rejected, (state, action) => {
                 state.status = 'rejected';
@@ -132,11 +135,12 @@ const commentsSlice = createSlice({
     },
 });
 
-export const { refreshComments, openReply, saveAvatar, saveUserId, saveUserName, isUserNameExists } =
+export const { refreshComments, openReply, clearReply, saveAvatar, saveUserId, saveUserName, isUserNameExists } =
     commentsSlice.actions;
 export const selectAllComments = (state: RootState) => state.comments.data;
 export const commentsStatus = (state: RootState) => state.comments.status;
 export const commentsErrors = (state: RootState) => state.comments.error;
+export const selectRefreshComments = (state: RootState) => state.comments.refresh;
 export const replyState = (state: RootState) => state.comments.reply;
 export const selectAvatar = (state: RootState) => state.comments.userData.avatar;
 export const selectUserName = (state: RootState) => state.comments.userData.userName;

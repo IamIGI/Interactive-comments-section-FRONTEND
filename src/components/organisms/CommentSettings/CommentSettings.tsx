@@ -17,7 +17,6 @@ const CommentSettings = ({ parents, replyData }: CommentSettingsProps) => {
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
     const handleReply = () => {
-        console.log(parents);
         dispatch(openReply({ commentIds: parents, ...replyData }));
     };
 
