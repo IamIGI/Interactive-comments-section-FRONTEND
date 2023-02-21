@@ -38,10 +38,15 @@ export interface deleteObjectInterface {
     comments: string[];
 }
 
-export interface editCommentObjectInterface {
-    indentLevel: number;
+export interface editCommentObjectApi {
     comments: string[];
     content: string;
+    indentLevel: number;
+}
+
+export interface editCommentObjectInterface extends editCommentObjectApi {
+    isEdited: boolean;
+    tagUser: string;
 }
 
 export interface editCommentScoreObjectInterface {

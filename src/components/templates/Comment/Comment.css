@@ -108,8 +108,16 @@
 
 .content__nav__info__desc h3 span {
     color: var(--color-neutral-grayishBlue);
-    padding-left: 10px;
     font-weight: 400;
+    background-color: var(--color-primary-moderateBlue);
+    color: white;
+    margin-left: 5px;
+    padding: 2px 4px;
+}
+
+.content__nav__info__desc h3 span:last-child {
+    background-color: white;
+    color: var(--color-neutral-grayishBlue);
 }
 
 .content__nav__info img {
