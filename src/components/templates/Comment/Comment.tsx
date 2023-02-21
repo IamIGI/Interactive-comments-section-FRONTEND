@@ -1,6 +1,12 @@
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../app/store';
-import { editScore, refreshComments, replyState } from '../../../features/comments/commentsSlice';
+import {
+    editCommentScore,
+    editScore,
+    refreshComments,
+    replyState,
+    selectUserData,
+} from '../../../features/comments/commentsSlice';
 import { editCommentScoreObjectInterface } from '../../../interfaces/comment.interfaces';
 import formatDate from '../../../services/dateFormatter';
 import AddComment from '../../organisms/AddComment/AddComment';
@@ -31,6 +37,7 @@ interface CommentProps {
 
 const Comment = ({ data, parents }: CommentProps) => {
     const dispatch = useAppDispatch();
+    const userData = useSelector(selectUserData);
     const { commentId } = useSelector(replyState);
 
     const saveScore = async (scoreUp: boolean) => {
@@ -42,8 +49,8 @@ const Comment = ({ data, parents }: CommentProps) => {
             comments: commentIdsArray,
             scoreUp,
         };
+        dispatch(editCommentScore(object));
         await dispatch(editScore(object));
-        dispatch(refreshComments());
     };
 
     return (
@@ -61,6 +68,7 @@ const Comment = ({ data, parents }: CommentProps) => {
                     </div>
                     <div className="smallerScreen">
                         <CommentSettings
+                            message={{ content: data.message, tagUser: data.tagUser.userName ?? '' }}
                             replyData={{ userId: data.userId, userName: data.nickname, commentId: data._id }}
                             parents={parents}
                         />
@@ -72,12 +80,15 @@ const Comment = ({ data, parents }: CommentProps) => {
                             <img src={`../../../../images/avatars/${data.image}`} />
                             <div className="content__nav__info__desc">
                                 <h3>
-                                    {data.nickname} <span> {formatDate(data.date)}</span>
+                                    {data.nickname}
+                                    {data.userId === userData.userId && <span>you</span>}
+                                    <span> {formatDate(data.date)}</span>
                                 </h3>
                             </div>
                         </div>
                         <div className="biggerScreen">
                             <CommentSettings
+                                message={{ content: data.message, tagUser: data.tagUser.userName ?? '' }}
                                 replyData={{ userId: data.userId, userName: data.nickname, commentId: data._id }}
                                 parents={parents}
                             />

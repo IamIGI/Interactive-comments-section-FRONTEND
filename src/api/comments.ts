@@ -3,6 +3,7 @@ import {
     addCommentObjectInterface,
     CommentInterface,
     deleteObjectInterface,
+    editCommentObjectApi,
     editCommentObjectInterface,
     editCommentScoreObjectInterface,
 } from '../interfaces/comment.interfaces';
@@ -39,9 +40,10 @@ const deleteComment = async (object: deleteObjectInterface) => {
     }
 };
 
-const editMessage = async (object: editCommentObjectInterface) => {
+const editMessage = async (object: editCommentObjectApi) => {
     try {
         const response = await commentsApi.patch('/edit', object);
+
         return response.data;
     } catch (err) {
         console.log(err);
