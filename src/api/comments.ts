@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { BASE_URL } from '../data/URL';
 import {
     addCommentObjectInterface,
     CommentInterface,
@@ -8,7 +9,7 @@ import {
 } from '../interfaces/comment.interfaces';
 
 const commentsApi = axios.create({
-    baseURL: 'http://localhost:5001/comments',
+    baseURL: `${BASE_URL}/comments`,
     headers: { 'Content-Type': 'application/json' },
 });
 
