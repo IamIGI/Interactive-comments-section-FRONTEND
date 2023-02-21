@@ -4,12 +4,11 @@ import {
     CommentInterface,
     deleteObjectInterface,
     editCommentObjectApi,
-    editCommentObjectInterface,
     editCommentScoreObjectInterface,
 } from '../interfaces/comment.interfaces';
 
 const commentsApi = axios.create({
-    baseURL: 'http://localhost:5000/comments',
+    baseURL: 'http://localhost:5001/comments',
     headers: { 'Content-Type': 'application/json' },
 });
 
