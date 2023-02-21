@@ -118,7 +118,8 @@ const commentsSlice = createSlice({
             state.userData.avatar = action.payload;
         },
         saveUserName(state, action: PayloadAction<string>) {
-            state.userData.userName = action.payload;
+            // action.payload.replace(/\s/g, '');
+            state.userData.userName = action.payload.replace(/\s/g, '');
         },
         isUserNameExists(state, action: PayloadAction<boolean>) {
             state.missingUserName = true;

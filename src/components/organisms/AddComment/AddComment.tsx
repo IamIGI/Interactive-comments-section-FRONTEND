@@ -89,7 +89,7 @@ const AddComment = ({ isReply = false }: AddCommentProps) => {
             </div>
             <div className="addComment__button  ">
                 <button className="pointer" onClick={() => addComment()}>
-                    {isReply ? 'Reply' : 'Send'}
+                    {editCommentData.isEdited && isReply ? 'Edit' : isReply ? 'Reply' : 'Send'}
                 </button>
             </div>
         </div>
