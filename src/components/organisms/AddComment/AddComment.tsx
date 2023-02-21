@@ -80,7 +80,7 @@ const AddComment = ({ isReply = false }: AddCommentProps) => {
         }
     };
     return (
-        <div className="addComment">
+        <div className="addComment" data-isreply={!isReply ? 'isReply' : ''}>
             <div className="addComment__image">
                 <img src={`../../../../images/avatars/${userData.avatar}`} alt="user avatar" />
             </div>

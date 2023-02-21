@@ -103,7 +103,11 @@ const commentsSlice = createSlice({
         },
         openReply(state, action: PayloadAction<replyInterface>) {
             state.editComment = editCommentInit;
-            state.reply = action.payload;
+            if (state.reply.commentId === action.payload.commentId) {
+                state.reply = replyInit;
+            } else {
+                state.reply = action.payload;
+            }
         },
         openEdit(state, action: PayloadAction<editCommentObjectInterface>) {
             const { comments } = action.payload;

@@ -14,8 +14,7 @@ body {
 }
 
 .commentSection {
-    margin: auto;
-    margin-top: 20px;
+    margin: 20px auto;
     width: 900px;
     height: 100%;
     display: flex;
