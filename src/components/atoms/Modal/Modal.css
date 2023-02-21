@@ -9,8 +9,6 @@
 .insideWrapper {
     width: 340px;
     position: relative;
-    /* width: fit-content;
-    height: fit-content; */
     background-color: white;
     border: none;
     outline: none;
@@ -27,12 +25,10 @@
 }
 
 .modal__title {
-    /* border: 1px solid red; */
     margin-right: auto;
     margin-left: 0;
     font-size: 20px;
     font-weight: 700;
-    /* letter-spacing: 1px; */
     word-spacing: 3px;
     color: var(--color-neutral-darkBlue);
 }

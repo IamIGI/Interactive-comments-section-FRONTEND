@@ -103,7 +103,11 @@ const commentsSlice = createSlice({
         },
         openReply(state, action: PayloadAction<replyInterface>) {
             state.editComment = editCommentInit;
-            state.reply = action.payload;
+            if (state.reply.commentId === action.payload.commentId) {
+                state.reply = replyInit;
+            } else {
+                state.reply = action.payload;
+            }
         },
         openEdit(state, action: PayloadAction<editCommentObjectInterface>) {
             const { comments } = action.payload;
@@ -118,7 +122,8 @@ const commentsSlice = createSlice({
             state.userData.avatar = action.payload;
         },
         saveUserName(state, action: PayloadAction<string>) {
-            state.userData.userName = action.payload;
+            // action.payload.replace(/\s/g, '');
+            state.userData.userName = action.payload.replace(/\s/g, '');
         },
         isUserNameExists(state, action: PayloadAction<boolean>) {
             state.missingUserName = true;

@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../../app/store';
+import format from 'date-fns/format';
 import {
     editCommentScore,
     editScore,
@@ -8,6 +10,7 @@ import {
     selectUserData,
 } from '../../../features/comments/commentsSlice';
 import { editCommentScoreObjectInterface } from '../../../interfaces/comment.interfaces';
+import dateDifference from '../../../services/dateDifference';
 import formatDate from '../../../services/dateFormatter';
 import AddComment from '../../organisms/AddComment/AddComment';
 import CommentSettings from '../../organisms/CommentSettings/CommentSettings';
@@ -82,7 +85,7 @@ const Comment = ({ data, parents }: CommentProps) => {
                                 <h3>
                                     {data.nickname}
                                     {data.userId === userData.userId && <span>you</span>}
-                                    <span> {formatDate(data.date)}</span>
+                                    <span> {dateDifference(new Date(formatDate(data.date)))}</span>
                                 </h3>
                             </div>
                         </div>

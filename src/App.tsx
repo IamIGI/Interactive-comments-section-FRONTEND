@@ -7,6 +7,7 @@ import Comment from './components/templates/Comment/Comment';
 import { useGetComments } from './features/comments/commentsHooks';
 import { selectUserExists } from './features/comments/commentsSlice';
 import { CommentInterface } from './interfaces/comment.interfaces';
+import dateDifference from './services/dateDifference';
 
 function App() {
     const isUserExists = useSelector(selectUserExists);
