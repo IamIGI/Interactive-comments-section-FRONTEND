@@ -35,6 +35,7 @@ const CommentSettings = ({ message, parents, replyData }: CommentSettingsProps) 
     const handleEdit = () => {
         let commentIdsArray = [...parents];
         if (parents[parents.length - 1] !== replyData.commentId) commentIdsArray.push(replyData.commentId);
+
         const object: editCommentObjectInterface = {
             isEdited: true,
             indentLevel: commentIdsArray.length - 1,
@@ -42,7 +43,6 @@ const CommentSettings = ({ message, parents, replyData }: CommentSettingsProps) 
             content: message.content,
             tagUser: message.tagUser,
         };
-        console.log(replyData.commentId);
 
         dispatch(openEdit(object));
     };

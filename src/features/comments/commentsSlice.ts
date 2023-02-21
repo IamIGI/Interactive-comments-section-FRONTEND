@@ -108,7 +108,6 @@ const commentsSlice = createSlice({
         openEdit(state, action: PayloadAction<editCommentObjectInterface>) {
             const { comments } = action.payload;
             state.reply.commentId = comments[comments.length - 1];
-            console.log(action.payload);
             state.editComment = action.payload;
         },
         clearMessages(state) {
