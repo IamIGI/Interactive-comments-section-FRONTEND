@@ -7,7 +7,6 @@ import Comment from './components/templates/Comment/Comment';
 import { useGetComments } from './features/comments/commentsHooks';
 import { selectUserExists } from './features/comments/commentsSlice';
 import { CommentInterface } from './interfaces/comment.interfaces';
-import dateDifference from './services/dateDifference';
 
 function App() {
     const isUserExists = useSelector(selectUserExists);
@@ -18,48 +17,55 @@ function App() {
         if (!isUserExists) setWelcomeModalOpen(true);
     }, []);
 
+    useEffect(() => {
+        document.getElementById('bottom')?.scrollIntoView();
+    }, [isSuccess]);
+
     return (
-        <div className="commentSection">
-            {isError ? (
-                <>{error}</>
-            ) : isLoading ? (
-                <>Loading...</>
-            ) : isSuccess && data ? (
-                <>
-                    {(data as CommentInterface[]).map((comment0) => (
-                        <>
-                            <Comment parents={[comment0._id]} data={comment0} key={comment0._id} />
-                            <div className="commentSubSection">
-                                {comment0.responses.length > 0 &&
-                                    comment0.responses.map((comment1) => (
-                                        <>
-                                            <Comment
-                                                parents={[comment0._id, comment1._id]}
-                                                data={comment1}
-                                                key={comment1._id}
-                                            />
-                                            <div className="commentSubSection">
-                                                {comment1.responses.length > 0 &&
-                                                    comment1.responses.map((comment2) => (
-                                                        <Comment
-                                                            parents={[comment0._id, comment1._id]}
-                                                            data={comment2}
-                                                            key={comment2._id}
-                                                        />
-                                                    ))}
-                                            </div>
-                                        </>
-                                    ))}
-                            </div>
-                        </>
-                    ))}
-                    <AddComment isReply={false} />
-                </>
-            ) : null}
-            <Modal welcomeModal={true} open={welcomeModalOpen} onClose={() => setWelcomeModalOpen(false)}>
-                <WelcomeUser />
-            </Modal>
-        </div>
+        <>
+            <div className="commentSection">
+                {isError ? (
+                    <>{error}</>
+                ) : isLoading ? (
+                    <>Loading...</>
+                ) : isSuccess && data ? (
+                    <>
+                        {(data as CommentInterface[]).map((comment0) => (
+                            <>
+                                <Comment parents={[comment0._id]} data={comment0} key={comment0._id} />
+                                <div className="commentSubSection">
+                                    {comment0.responses.length > 0 &&
+                                        comment0.responses.map((comment1) => (
+                                            <>
+                                                <Comment
+                                                    parents={[comment0._id, comment1._id]}
+                                                    data={comment1}
+                                                    key={comment1._id}
+                                                />
+                                                <div className="commentSubSection">
+                                                    {comment1.responses.length > 0 &&
+                                                        comment1.responses.map((comment2) => (
+                                                            <Comment
+                                                                parents={[comment0._id, comment1._id]}
+                                                                data={comment2}
+                                                                key={comment2._id}
+                                                            />
+                                                        ))}
+                                                </div>
+                                            </>
+                                        ))}
+                                </div>
+                            </>
+                        ))}
+                    </>
+                ) : null}
+                <AddComment isReply={false} />
+                <Modal welcomeModal={true} open={welcomeModalOpen} onClose={() => setWelcomeModalOpen(false)}>
+                    <WelcomeUser />
+                </Modal>
+            </div>
+            <div id="bottom" />
+        </>
     );
 }
 
